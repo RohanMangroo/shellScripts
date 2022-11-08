@@ -1,0 +1,8 @@
+#!/bin/bash
+
+GO_BACK=$1
+
+for (( i=0; i<GO_BACK; i++ ))
+do 
+   cd ../
+done
