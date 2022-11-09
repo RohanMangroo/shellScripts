@@ -5,6 +5,7 @@ VAR_TARGET=$1
 #Slicing off the first / in the current dir
 VAR_STRING="${$(pwd):1}"
 #Delimiter
+OLDIFS=$IFS
 IFS='/'
 
 #Turning string in array seperated by IFS
@@ -31,3 +32,4 @@ done
 
 #Need to unset the vars because this script is being run in the interactive shell
 unset -m "VAR_*"
+IFS=${OLDIFS}

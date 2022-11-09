@@ -16,6 +16,7 @@ LENGTH=${#ARRAY[*]}
 
 if [ ${ARRAY[0]} = "-p" ] 
     then PRECISION=${ARRAY[1]}
+    #Slicing array and passing it to join function 
     join ${ARRAY[@]:2:${LENGTH}-1}
 else 
     PRECISION=5

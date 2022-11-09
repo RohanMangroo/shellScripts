@@ -1,0 +1,61 @@
+#! /bin/bash
+
+#Passed in arguments 
+OPTION=${1:-NULL}
+ARGU=${2:-NULL}
+
+#Variables
+OLD_IFS=${IFS}
+IFS=":"
+ARRAY=NULL
+
+##################################################
+function echoPaths(){
+    LENGTH=${#ARRAY[*]}
+    echo ""
+    for(( i=0; i<${LENGTH}; i++)) do
+        echo ${ARRAY[i]}
+    done
+    echo ""
+}
+
+#Splitting string into an array of strings
+function splitString(){
+    read -a ARRAY <<< "$PATH"
+}
+
+##Loopin through files in folders
+function findPaths(){
+    for DIR in ${ARRAY[*]}; do 
+        cd ${DIR}
+        for FILE in *; do 
+            if [ ${FILE} = ${ARGU} ]; then echo ${DIR}; fi; 
+        done
+    done
+}
+
+function findDir(){
+    for DIR in ${ARRAY[*]}; do
+        if [ ${DIR} = ${ARGU} ]; then echo true; return; fi
+    done
+    echo false;
+}
+
+function driver(){
+    if [ ${OPTION} = "-c" ]; then 
+        findPaths
+    elif [ ${OPTION} = "-d" ]; then 
+        findDir
+    else echoPaths
+    fi 
+}
+
+###################################################
+
+#Function Calls
+splitString
+driver 
+
+
+
+
