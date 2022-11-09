@@ -1,28 +1,30 @@
 #! /bin/bash
 
+#Stores the specified inout folder here
 TARGET=$1
-CURR_DIR=$(pwd)
-STRING="${CURR_DIR:1}"
-
+#Slicing off the first / in the current dir
+STRING="${$(pwd):1}"
+#Delimiter
 IFS='/'
 
+#Turning string in array seperated by IFS
 read -A array <<< "${STRING}"
+#Getting length of array
 LENGTH=${#array[*]}
+#Establish Count
 COUNT=0
 
-for (( i=1; i<${LENGTH}+1; i++ ))
- do
+#Looping through the entire array that represents the current dir from front to back trying to find the target dir
+for (( i=1; i<${LENGTH}+1; i++ )) do
   if [ ${TARGET} = ${array[i]} ]
    then break
-  else
-   let "COUNT++"
+  else let "COUNT++"
   fi 
 done
 
+#If taget dir is never found BACK_TO evaluates to 0
 let BACK_TO=${LENGTH}-1-${COUNT}
-
-for (( i=0; i<${BACK_TO}; i++ ))
- do 
+for (( i=0; i<${BACK_TO}; i++ )) do 
   cd ../
 done
 
