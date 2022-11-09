@@ -9,6 +9,7 @@ IFS='/'
 
 #Turning string in array seperated by IFS
 read -A VAR_array <<< "${VAR_STRING}"
+
 #Getting length of array
 VAR_LENGTH=${#VAR_array[*]}
 #Establish Count
@@ -28,4 +29,5 @@ for (( i=0; i<${VAR_BACK_TO}; i++ )) do
   cd ../
 done
 
+#Need to unset the vars because this script is being run in the interactive shell
 unset -m "VAR_*"

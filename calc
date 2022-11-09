@@ -1,0 +1,30 @@
+#! /bin/bash
+join() {
+  local IFS=""
+  CALC="$*"
+}
+
+#Splitting string into an array of strings
+splitString(){
+    read -a ARRAY <<< "$*"
+}
+
+#Calling splitString and passing it the entire line argument
+splitString $* 
+
+LENGTH=${#ARRAY[*]}
+
+if [ ${ARRAY[0]} = "-p" ] 
+    then PRECISION=${ARRAY[1]}
+    join ${ARRAY[@]:2:${LENGTH}-1}
+else 
+    PRECISION=5
+    join ${ARRAY[*]}
+fi 
+
+#Passing the CALC string to the BC enviornment to do calculations 
+bc << _EOF_
+scale=${PRECISION}
+${CALC}
+_EOF_
+
