@@ -1,30 +1,31 @@
 #! /bin/bash
 
 #Stores the specified inout folder here
-TARGET=$1
+VAR_TARGET=$1
 #Slicing off the first / in the current dir
-STRING="${$(pwd):1}"
+VAR_STRING="${$(pwd):1}"
 #Delimiter
 IFS='/'
 
 #Turning string in array seperated by IFS
-read -A array <<< "${STRING}"
+read -A VAR_array <<< "${VAR_STRING}"
 #Getting length of array
-LENGTH=${#array[*]}
+VAR_LENGTH=${#VAR_array[*]}
 #Establish Count
-COUNT=0
+VAR_COUNT=0
 
 #Looping through the entire array that represents the current dir from front to back trying to find the target dir
-for (( i=1; i<${LENGTH}+1; i++ )) do
-  if [ ${TARGET} = ${array[i]} ]
+for (( i=1; i<${VAR_LENGTH}+1; i++ )) do
+  if [ ${VAR_TARGET} = ${VAR_array[i]} ]
    then break
-  else let "COUNT++"
+  else let "VAR_COUNT++"
   fi 
 done
 
 #If taget dir is never found BACK_TO evaluates to 0
-let BACK_TO=${LENGTH}-1-${COUNT}
-for (( i=0; i<${BACK_TO}; i++ )) do 
+let VAR_BACK_TO=${VAR_LENGTH}-1-${VAR_COUNT}
+for (( i=0; i<${VAR_BACK_TO}; i++ )) do 
   cd ../
 done
 
+unset -m "VAR_*"
