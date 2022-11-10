@@ -1,0 +1,20 @@
+#! /bin/bash
+
+FILE_NAME=$1
+FILE_CONTENT=$(strings ${FILE_NAME})
+
+MAX_LENGTH=0
+MAX_WORD=""
+
+for word in ${FILE_CONTENT}; 
+do
+    if [ ${#word} -gt ${MAX_LENGTH} ]; then
+        MAX_LENGTH=${#word}
+        MAX_WORD=${word}
+    fi
+done
+
+echo ""
+echo Word: ${MAX_WORD}
+echo Length: ${MAX_LENGTH}
+echo ""
