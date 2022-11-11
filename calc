@@ -1,4 +1,8 @@
 #! /bin/bash
+
+
+#There is a big problem with multiplcation. When * is entered in as a argument to the cacl command the * means all the folders in the current directory 
+
 join() {
   local IFS=""
   CALC="$*"
